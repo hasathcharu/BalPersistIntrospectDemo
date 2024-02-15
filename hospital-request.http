@@ -1,0 +1,63 @@
+### Create a doctor
+POST http://localhost:9090/hospital/doctors
+Content-Type: application/json
+
+{
+    "id": 1,
+    "name": "Dr. Test",
+    "specialty": "Physician",
+    "phoneNumber": "1234567890"
+}
+
+### Create a patient
+POST http://localhost:9090/hospital/patients
+Content-Type: application/json
+
+{
+    "name": "Test Patient",
+    "age": 30,
+    "phoneNumber": "0771690000",
+    "gender": "MALE",
+    "address": "123, Main Street, Colombo 05"
+}
+
+### Create an appointment
+POST http://localhost:9090/hospital/appointments
+Content-Type: application/json
+
+{
+    "id": 1,
+    "_patientId": 18,
+    "_doctorId": 1,
+    "appointmentTime": {
+        "year": 2023,
+        "month": 07,
+        "day": 01,
+        "hour": 10,
+        "minute": 30
+    },
+    "status": "SCHEDULED",
+    "reason": "Stomach Pain"
+}
+
+//this
+### Get all appointments for doctor 01 on 2023-07-01
+GET http://localhost:9090/hospital/doctors/1/appointments?year=2023&month=07&day=01
+
+### Get all doctors with specialty
+GET http://localhost:9090/hospital/doctors
+
+### Get patient details by id
+GET http://localhost:9090/hospital/patients/18
+
+
+### Update the status of the appointment
+PATCH  http://localhost:9090/hospital/appointments/1
+Content-Type: application/json
+
+"STARTED"
+
+//this
+### Delete an appointment
+DELETE http://localhost:9090/hospital/patients/18/appointments?year=2023&month=07&day=01
+
