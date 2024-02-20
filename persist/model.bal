@@ -20,20 +20,19 @@ public type Appointment record {|
     string reason;
     time:Civil appointmentTime;
     AppointmentStatus status;
-    @sql:Mapping {name: "patientId"}
     @sql:Index {name: "patientId"}
-    int _patientId;
-    @sql:Mapping {name: "doctorId"}
+    int patientId;
     @sql:Index {name: "doctorId"}
-    int _doctorId;
-    @sql:Relation {refs: ["_patientId"]}
+    int doctorId;
+    @sql:Relation {refs: ["patientId"]}
     Patient patient;
-    @sql:Relation {refs: ["_doctorId"]}
+    @sql:Relation {refs: ["doctorId"]}
     Doctor doctor;
 |};
 
 @sql:Mapping {name: "patients"}
 public type Patient record {|
+    @sql:Mapping {name: "ID"}
     @sql:Generated
     readonly int id;
     string name;
@@ -53,6 +52,8 @@ public type Doctor record {|
     string specialty;
     @sql:Mapping {name: "phone_number"}
     string phoneNumber;
+    @sql:Decimal {precision: [10, 2]}
+    decimal? salary;
     Appointment[] appointments;
 |};
 

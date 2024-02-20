@@ -15,7 +15,7 @@ module = "Demo.db"
 host = "localhost"
 port = 3306
 user = "root"
-password = ""
+password = "Test123#"
 database = "hospital"
 
 [[platform.java17.dependency]]

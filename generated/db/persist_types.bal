@@ -19,8 +19,8 @@ public type Appointment record {|
     string reason;
     time:Civil appointmentTime;
     AppointmentStatus status;
-    int _patientId;
-    int _doctorId;
+    int patientId;
+    int doctorId;
 |};
 
 public type AppointmentOptionalized record {|
@@ -28,8 +28,8 @@ public type AppointmentOptionalized record {|
     string reason?;
     time:Civil appointmentTime?;
     AppointmentStatus status?;
-    int _patientId?;
-    int _doctorId?;
+    int patientId?;
+    int doctorId?;
 |};
 
 public type AppointmentWithRelations record {|
@@ -46,8 +46,8 @@ public type AppointmentUpdate record {|
     string reason?;
     time:Civil appointmentTime?;
     AppointmentStatus status?;
-    int _patientId?;
-    int _doctorId?;
+    int patientId?;
+    int doctorId?;
 |};
 
 public type Patient record {|
@@ -96,6 +96,7 @@ public type Doctor record {|
     string name;
     string specialty;
     string phoneNumber;
+    decimal? salary;
 |};
 
 public type DoctorOptionalized record {|
@@ -103,6 +104,7 @@ public type DoctorOptionalized record {|
     string name?;
     string specialty?;
     string phoneNumber?;
+    decimal? salary?;
 |};
 
 public type DoctorWithRelations record {|
@@ -118,5 +120,6 @@ public type DoctorUpdate record {|
     string name?;
     string specialty?;
     string phoneNumber?;
+    decimal? salary?;
 |};
 

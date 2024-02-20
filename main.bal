@@ -12,7 +12,7 @@ public type Doctor record {|
 
 type Appointment record {|
     int id;
-    int _doctorId;
+    int doctorId;
     time:Civil appointmentTime;
     db:AppointmentStatus status;
     record {|
@@ -86,7 +86,7 @@ service /hospital on new http:Listener(9090) {
     resource function get doctors/[int id]/appointments(int year, int month, int day) returns Appointment[]|error {
         stream<Appointment, persist:Error?> appointments = self.dbClient->/appointments();
         return from Appointment appointment in appointments
-            where appointment._doctorId == id &&
+            where appointment.doctorId == id &&
             appointment.appointmentTime.year == year &&
             appointment.appointmentTime.month == month &&
             appointment.appointmentTime.day == day
@@ -122,7 +122,7 @@ service /hospital on new http:Listener(9090) {
     resource function delete patients/[int id]/appointments(int year, int month, int day) returns http:InternalServerError & readonly|http:NoContent & readonly|http:NotFound & readonly {
         stream<db:Appointment, persist:Error?> appointments = self.dbClient->/appointments;
         db:Appointment[]|persist:Error result = from db:Appointment appointment in appointments
-            where appointment._patientId == id
+            where appointment.patientId == id
                 && appointment.appointmentTime.year == year
                 && appointment.appointmentTime.month == month
                 && appointment.appointmentTime.day == day
