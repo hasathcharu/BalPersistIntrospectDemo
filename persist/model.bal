@@ -21,6 +21,7 @@ public type Appointment record {|
     time:Civil appointmentTime;
     AppointmentStatus status;
     @sql:Index {name: "patientId"}
+    @sql:Mapping {name: "patient_id"}
     int patientId;
     @sql:Index {name: "doctorId"}
     int doctorId;

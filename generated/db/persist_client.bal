@@ -28,7 +28,7 @@ public isolated client class Client {
                 reason: {columnName: "reason"},
                 appointmentTime: {columnName: "appointmentTime"},
                 status: {columnName: "status"},
-                patientId: {columnName: "patientId"},
+                patientId: {columnName: "patient_id"},
                 doctorId: {columnName: "doctorId"},
                 "patient.id": {relation: {entityName: "patient", refField: "id"}},
                 "patient.name": {relation: {entityName: "patient", refField: "name"}},
@@ -44,7 +44,7 @@ public isolated client class Client {
             },
             keyFields: ["id"],
             joinMetadata: {
-                patient: {entity: Patient, fieldName: "patient", refTable: "patients", refColumns: ["id"], joinColumns: ["patientId"], 'type: psql:ONE_TO_MANY},
+                patient: {entity: Patient, fieldName: "patient", refTable: "patients", refColumns: ["ID"], joinColumns: ["patient_id"], 'type: psql:ONE_TO_MANY},
                 doctor: {entity: Doctor, fieldName: "doctor", refTable: "Doctor", refColumns: ["id"], joinColumns: ["doctorId"], 'type: psql:ONE_TO_MANY}
             }
         },
@@ -66,7 +66,7 @@ public isolated client class Client {
                 "appointments[].doctorId": {relation: {entityName: "appointments", refField: "doctorId"}}
             },
             keyFields: ["id"],
-            joinMetadata: {appointments: {entity: Appointment, fieldName: "appointments", refTable: "appointment", refColumns: ["patientId"], joinColumns: ["ID"], 'type: psql:MANY_TO_ONE}}
+            joinMetadata: {appointments: {entity: Appointment, fieldName: "appointments", refTable: "appointment", refColumns: ["patient_id"], joinColumns: ["ID"], 'type: psql:MANY_TO_ONE}}
         },
         [DOCTOR]: {
             entityName: "Doctor",

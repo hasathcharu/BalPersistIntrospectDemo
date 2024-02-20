@@ -41,9 +41,12 @@ Content-Type: application/json
     "reason": "Headache"
 }
 
-//this
 ### Get all appointments for doctor 01 on 2023-07-01
 GET http://localhost:9090/hospital/doctors/1/appointments?year=2023&month=07&day=01
+
+### Get all appointments for patient 01
+GET http://localhost:9090/hospital/patients/20/appointments
+
 
 ### Get all doctors with specialty
 GET http://localhost:9090/hospital/doctors

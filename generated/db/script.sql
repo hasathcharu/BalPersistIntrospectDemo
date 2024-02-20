@@ -31,15 +31,15 @@ CREATE TABLE `appointment` (
 	`reason` VARCHAR(191) NOT NULL,
 	`appointmentTime` DATETIME NOT NULL,
 	`status` ENUM('SCHEDULED', 'STARTED', 'ENDED') NOT NULL,
-	`patientId` null NOT NULL,
-	FOREIGN KEY(`patientId`) REFERENCES `patients`(`id`),
+	`patient_id` null NOT NULL,
+	FOREIGN KEY(`patient_id`) REFERENCES `patients`(`id`),
 	`doctorId` INT NOT NULL,
 	FOREIGN KEY(`doctorId`) REFERENCES `Doctor`(`id`),
 	PRIMARY KEY(`id`)
 );
 
 
-CREATE INDEX `patientId` ON `appointment` (`patientId`);
+CREATE INDEX `patientId` ON `appointment` (`patient_id`);
 CREATE INDEX `doctorId` ON `appointment` (`doctorId`);
 CREATE UNIQUE INDEX `reason_index` ON `appointment` (`reason`);
 CREATE INDEX `specialty_index` ON `Doctor` (`specialty`);

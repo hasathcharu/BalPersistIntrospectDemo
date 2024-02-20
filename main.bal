@@ -22,6 +22,18 @@ type Appointment record {|
     |} patient;
 |};
 
+type PatientAppointment record {|
+    int id;
+    int patientId;
+    time:Civil appointmentTime;
+    db:AppointmentStatus status;
+    record {|
+        int id;
+        string name;
+        string specialty;
+    |} doctor;
+|};
+
 type PatientCreated record {|
     *http:Created;
 |};
@@ -92,6 +104,14 @@ service /hospital on new http:Listener(9090) {
             appointment.appointmentTime.day == day
             select appointment;
 
+    }
+
+    // Define the resource to handle GET requests for appointments for patients by id
+    resource function get patients/[int id]/appointments() returns PatientAppointment[]|error {
+        stream<PatientAppointment, persist:Error?> appointments = self.dbClient->/appointments();
+        return from PatientAppointment appointment in appointments
+            where appointment.patientId == id
+            select appointment;
     }
 
     // Define the resource to handle GET requests for patients by id
