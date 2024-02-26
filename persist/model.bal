@@ -16,14 +16,14 @@ public enum PatientGender {
 @sql:Mapping {name: "appointment"}
 public type Appointment record {|
     readonly int id;
-    @sql:UniqueIndex {name: "reason_index"}
+    @sql:UniqueIndex {names: ["reason_index"]}
     string reason;
     time:Civil appointmentTime;
     AppointmentStatus status;
-    @sql:Index {name: "patientId"}
     @sql:Mapping {name: "patient_id"}
+    @sql:Index {names: ["patientId"]}
     int patientId;
-    @sql:Index {name: "doctorId"}
+    @sql:Index {names: ["doctorId"]}
     int doctorId;
     @sql:Relation {refs: ["patientId"]}
     Patient patient;
@@ -49,7 +49,7 @@ public type Patient record {|
 public type Doctor record {|
     readonly int id;
     string name;
-    @sql:Index {name: "specialty_index"}
+    @sql:Index {names: ["specialty_index"]}
     string specialty;
     @sql:Mapping {name: "phone_number"}
     string phoneNumber;

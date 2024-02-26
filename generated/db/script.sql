@@ -31,8 +31,8 @@ CREATE TABLE `appointment` (
 	`reason` VARCHAR(191) NOT NULL,
 	`appointmentTime` DATETIME NOT NULL,
 	`status` ENUM('SCHEDULED', 'STARTED', 'ENDED') NOT NULL,
-	`patient_id` null NOT NULL,
-	FOREIGN KEY(`patient_id`) REFERENCES `patients`(`id`),
+	`patient_id` INT NOT NULL,
+	FOREIGN KEY(`patient_id`) REFERENCES `patients`(`ID`),
 	`doctorId` INT NOT NULL,
 	FOREIGN KEY(`doctorId`) REFERENCES `Doctor`(`id`),
 	PRIMARY KEY(`id`)

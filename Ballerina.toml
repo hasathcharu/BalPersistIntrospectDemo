@@ -11,13 +11,6 @@ observabilityIncluded = true
 datastore = "mysql"
 module = "Demo.db"
 
-[persist.model.storage.mysql]
-host = "localhost"
-port = 3306
-user = "root"
-password = "Test123#"
-database = "hospital"
-
 [[platform.java17.dependency]]
 groupId = "io.ballerina.stdlib"
 artifactId = "persist.sql-native"
