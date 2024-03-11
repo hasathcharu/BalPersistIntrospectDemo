@@ -5,7 +5,7 @@
 
 [ballerina]
 dependencies-toml-version = "2"
-distribution-version = "2201.9.0-20240208-103300-0823dc95"
+distribution-version = "2201.9.0-20240229-103900-a949e6d4"
 
 [[package]]
 org = "ballerina"
@@ -61,7 +61,7 @@ dependencies = [
 [[package]]
 org = "ballerina"
 name = "http"
-version = "2.10.7"
+version = "2.10.8"
 dependencies = [
 	{org = "ballerina", name = "auth"},
 	{org = "ballerina", name = "cache"},
@@ -264,7 +264,8 @@ version = "1.11.1"
 dependencies = [
 	{org = "ballerina", name = "io"},
 	{org = "ballerina", name = "jballerina.java"},
-	{org = "ballerina", name = "lang.object"}
+	{org = "ballerina", name = "lang.object"},
+	{org = "ballerina", name = "time"}
 ]
 modules = [
 	{org = "ballerina", packageName = "sql", moduleName = "sql"}
@@ -336,12 +337,13 @@ modules = [
 [[package]]
 org = "ballerinax"
 name = "persist.sql"
-version = "1.2.2"
+version = "1.2.1"
 dependencies = [
 	{org = "ballerina", name = "jballerina.java"},
 	{org = "ballerina", name = "log"},
 	{org = "ballerina", name = "persist"},
-	{org = "ballerina", name = "sql"}
+	{org = "ballerina", name = "sql"},
+	{org = "ballerina", name = "time"}
 ]
 modules = [
 	{org = "ballerinax", packageName = "persist.sql", moduleName = "persist.sql"}

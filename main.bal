@@ -1,4 +1,4 @@
-import Demo.db;
+import Demo.entities;
 
 import ballerina/http;
 import ballerina/persist;
@@ -14,7 +14,7 @@ type Appointment record {|
     int id;
     int doctorId;
     time:Civil appointmentTime;
-    db:AppointmentStatus status;
+    entities:AppointmentStatus status;
     record {|
         int id;
         string name;
@@ -26,7 +26,7 @@ type PatientAppointment record {|
     int id;
     int patientId;
     time:Civil appointmentTime;
-    db:AppointmentStatus status;
+    entities:AppointmentStatus status;
     record {|
         int id;
         string name;
@@ -39,7 +39,7 @@ type PatientCreated record {|
 |};
 
 service /hospital on new http:Listener(9090) {
-    private final db:Client dbClient;
+    private final entities:Client dbClient;
 
     // Initialize the service
     function init() returns error? {
@@ -47,7 +47,7 @@ service /hospital on new http:Listener(9090) {
     }
 
     // Define the resource to handle POST requests
-    resource function post doctors(db:DoctorInsert doctor) returns http:InternalServerError & readonly|http:Created & readonly|http:Conflict & readonly {
+    resource function post doctors(entities:DoctorInsert doctor) returns http:InternalServerError & readonly|http:Created & readonly|http:Conflict & readonly {
         int[]|persist:Error result = self.dbClient->/doctors.post([doctor]);
         if result is persist:Error {
             if result is persist:AlreadyExistsError {
@@ -59,7 +59,7 @@ service /hospital on new http:Listener(9090) {
     }
 
     // Define the resource to handle POST requests for patients
-    resource function post patients(db:PatientInsert patient) returns http:InternalServerError & readonly|PatientCreated|http:Conflict & readonly {
+    resource function post patients(entities:PatientInsert patient) returns http:InternalServerError & readonly|PatientCreated|http:Conflict & readonly {
         int[]|persist:Error result = self.dbClient->/patients.post([patient]);
         if result is persist:Error {
             if result is persist:AlreadyExistsError {
@@ -76,7 +76,7 @@ service /hospital on new http:Listener(9090) {
     }
 
     // Define the resource to handle POST requests for appointments
-    resource function post appointments(db:AppointmentInsert appointment) returns http:InternalServerError & readonly|http:Created & readonly|http:Conflict & readonly {
+    resource function post appointments(entities:AppointmentInsert appointment) returns http:InternalServerError & readonly|http:Created & readonly|http:Conflict & readonly {
         int[]|persist:Error result = self.dbClient->/appointments.post([appointment]);
         if result is persist:Error {
             if result is persist:AlreadyExistsError {
@@ -115,8 +115,8 @@ service /hospital on new http:Listener(9090) {
     }
 
     // Define the resource to handle GET requests for patients by id
-    resource function get patients/[int id]() returns http:InternalServerError & readonly|http:NotFound & readonly|db:Patient {
-        db:Patient|persist:Error result = self.dbClient->/patients/[id];
+    resource function get patients/[int id]() returns http:InternalServerError & readonly|http:NotFound & readonly|entities:Patient {
+        entities:Patient|persist:Error result = self.dbClient->/patients/[id];
         if result is persist:Error {
             if result is persist:NotFoundError {
                 return http:NOT_FOUND;
@@ -127,8 +127,8 @@ service /hospital on new http:Listener(9090) {
     }
 
     // Define the resource to handle PATCH requests for appointment by id
-    resource function patch appointments/[int id](@http:Payload db:AppointmentStatus status) returns http:InternalServerError & readonly|http:NotFound & readonly|http:NoContent & readonly {
-        db:Appointment|persist:Error result = self.dbClient->/appointments/[id].put({status});
+    resource function patch appointments/[int id](@http:Payload entities:AppointmentStatus status) returns http:InternalServerError & readonly|http:NotFound & readonly|http:NoContent & readonly {
+        entities:Appointment|persist:Error result = self.dbClient->/appointments/[id].put({status});
         if result is persist:Error {
             if result is persist:NotFoundError {
                 return http:NOT_FOUND;
@@ -140,8 +140,8 @@ service /hospital on new http:Listener(9090) {
 
     // Define the resource to handle DELETE requests for patient's appointments passing patient id as path param and date as query params
     resource function delete patients/[int id]/appointments(int year, int month, int day) returns http:InternalServerError & readonly|http:NoContent & readonly|http:NotFound & readonly {
-        stream<db:Appointment, persist:Error?> appointments = self.dbClient->/appointments;
-        db:Appointment[]|persist:Error result = from db:Appointment appointment in appointments
+        stream<entities:Appointment, persist:Error?> appointments = self.dbClient->/appointments;
+        entities:Appointment[]|persist:Error result = from entities:Appointment appointment in appointments
             where appointment.patientId == id
                 && appointment.appointmentTime.year == year
                 && appointment.appointmentTime.month == month
@@ -153,8 +153,8 @@ service /hospital on new http:Listener(9090) {
             }
             return http:INTERNAL_SERVER_ERROR;
         }
-        foreach db:Appointment appointment in result {
-            db:Appointment|persist:Error deleteResult = self.dbClient->/appointments/[appointment.id].delete();
+        foreach entities:Appointment appointment in result {
+            entities:Appointment|persist:Error deleteResult = self.dbClient->/appointments/[appointment.id].delete();
             if deleteResult is persist:Error {
                 return http:INTERNAL_SERVER_ERROR;
             }

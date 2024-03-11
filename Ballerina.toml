@@ -7,14 +7,8 @@ distribution = "2201.8.4"
 [build-options]
 observabilityIncluded = true
 
-[[tool.persist]]
-id = "generate-db-client"
-targetModule = "persist_add_12.test"
-options.datastore = "mysql"
-filePath = "persist/model.bal"
-
 [[platform.java17.dependency]]
 groupId = "io.ballerina.stdlib"
 artifactId = "persist.sql-native"
-version = "1.2.1"
+version = "1.2.2-SNAPSHOT"
 
