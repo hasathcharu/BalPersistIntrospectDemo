@@ -366,6 +366,6 @@ dependencies = [
 ]
 modules = [
 	{org = "haritha", packageName = "Demo", moduleName = "Demo"},
-	{org = "haritha", packageName = "Demo", moduleName = "Demo.db"}
+	{org = "haritha", packageName = "Demo", moduleName = "Demo.entities"}
 ]
 

@@ -28,8 +28,8 @@ Content-Type: application/json
 
 {
     "id": 3,
-    "patientId": 20,
-    "doctorId": 1,
+    "patientId": 1,
+    "doctorId": 2,
     "appointmentTime": {
         "year": 2023,
         "month": 07,
@@ -42,17 +42,17 @@ Content-Type: application/json
 }
 
 ### Get all appointments for doctor 01 on 2023-07-01
-GET http://localhost:9090/hospital/doctors/1/appointments?year=2023&month=07&day=01
+GET http://localhost:9090/hospital/doctors/2/appointments?year=2023&month=07&day=01
 
 ### Get all appointments for patient 01
-GET http://localhost:9090/hospital/patients/20/appointments
+GET http://localhost:9090/hospital/patients/1/appointments
 
 
 ### Get all doctors with specialty
 GET http://localhost:9090/hospital/doctors
 
 ### Get patient details by id
-GET http://localhost:9090/hospital/patients/20
+GET http://localhost:9090/hospital/patients/1
 
 
 ### Update the status of the appointment
@@ -63,5 +63,5 @@ Content-Type: application/json
 
 //this
 ### Delete an appointment
-DELETE http://localhost:9090/hospital/patients/20/appointments?year=2023&month=07&day=01
+DELETE http://localhost:9090/hospital/patients/1/appointments?year=2023&month=07&day=01
 
