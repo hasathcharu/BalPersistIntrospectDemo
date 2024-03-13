@@ -10,5 +10,11 @@ observabilityIncluded = true
 [[platform.java17.dependency]]
 groupId = "io.ballerina.stdlib"
 artifactId = "persist.sql-native"
-version = "1.2.1"
+version = "1.3.0"
+path = "/Users/haritha/Developer/WSO2/module-ballerinax-persist.sql/target/ballerina-runtime/repo/bala/ballerinax/persist.sql/1.3.0/java17/platform/java17/persist.sql-native-1.3.0-SNAPSHOT.jar"
+
+[[dependency]]
+org = "ballerinax"
+name = "persist.sql"
+version = "1.3.0"
 

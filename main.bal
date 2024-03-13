@@ -62,17 +62,13 @@ service /hospital on new http:Listener(9090) {
     resource function post patients(entities:PatientInsert patient) returns http:InternalServerError & readonly|PatientCreated|http:Conflict & readonly {
         int[]|persist:Error result = self.dbClient->/patients.post([patient]);
         if result is persist:Error {
-            if result is persist:AlreadyExistsError {
-                return http:CONFLICT;
-            }
             return http:INTERNAL_SERVER_ERROR;
         }
-        return {
+        return <PatientCreated> {
             body: {
-                patientIds: result
+                insertedId: result[0]
             }
         };
-
     }
 
     // Define the resource to handle POST requests for appointments
@@ -160,6 +156,22 @@ service /hospital on new http:Listener(9090) {
             }
         }
 
+        return http:NO_CONTENT;
+    }
+
+    resource function delete patients/[int id]() returns http:NoContent | http:InternalServerError {
+        entities:Patient|persist:Error result = self.dbClient->/patients/[id].delete();
+        if result is persist:Error {
+            return http:INTERNAL_SERVER_ERROR;
+        }
+        return http:NO_CONTENT;
+    }
+
+    resource function delete doctors/[int id]() returns http:NoContent | http:InternalServerError {
+        entities:Doctor|persist:Error result = self.dbClient->/doctors/[id].delete();
+        if result is persist:Error {
+            return http:INTERNAL_SERVER_ERROR;
+        }
         return http:NO_CONTENT;
     }
 }

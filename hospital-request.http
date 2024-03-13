@@ -61,7 +61,11 @@ Content-Type: application/json
 
 "STARTED"
 
-//this
 ### Delete an appointment
 DELETE http://localhost:9090/hospital/patients/1/appointments?year=2023&month=07&day=01
 
+### Delete a patient
+DELETE http://localhost:9090/hospital/patients/1
+
+### Delete a doctor
+DELETE http://localhost:9090/hospital/doctors/1
