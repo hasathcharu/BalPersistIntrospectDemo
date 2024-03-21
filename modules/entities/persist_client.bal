@@ -30,21 +30,21 @@ public isolated client class Client {
                 status: {columnName: "status"},
                 patientId: {columnName: "patient_id"},
                 doctorId: {columnName: "doctorId"},
-                "patient.id": {relation: {entityName: "patient", refField: "id"}},
+                "patient.id": {relation: {entityName: "patient", refField: "id", refColumn: "IDP"}},
                 "patient.name": {relation: {entityName: "patient", refField: "name"}},
                 "patient.age": {relation: {entityName: "patient", refField: "age"}},
-                "patient.address": {relation: {entityName: "patient", refField: "address"}},
+                "patient.address": {relation: {entityName: "patient", refField: "address", refColumn: "ADD_RESS"}},
                 "patient.phoneNumber": {relation: {entityName: "patient", refField: "phoneNumber"}},
                 "patient.gender": {relation: {entityName: "patient", refField: "gender"}},
                 "doctor.id": {relation: {entityName: "doctor", refField: "id"}},
                 "doctor.name": {relation: {entityName: "doctor", refField: "name"}},
                 "doctor.specialty": {relation: {entityName: "doctor", refField: "specialty"}},
-                "doctor.phoneNumber": {relation: {entityName: "doctor", refField: "phoneNumber"}},
+                "doctor.phoneNumber": {relation: {entityName: "doctor", refField: "phoneNumber", refColumn: "phone_number"}},
                 "doctor.salary": {relation: {entityName: "doctor", refField: "salary"}}
             },
             keyFields: ["id"],
             joinMetadata: {
-                patient: {entity: Patient, fieldName: "patient", refTable: "patients", refColumns: ["ID"], joinColumns: ["patient_id"], 'type: psql:ONE_TO_MANY},
+                patient: {entity: Patient, fieldName: "patient", refTable: "patients", refColumns: ["IDP"], joinColumns: ["patient_id"], 'type: psql:ONE_TO_MANY},
                 doctor: {entity: Doctor, fieldName: "doctor", refTable: "Doctor", refColumns: ["id"], joinColumns: ["doctorId"], 'type: psql:ONE_TO_MANY}
             }
         },
@@ -52,21 +52,21 @@ public isolated client class Client {
             entityName: "Patient",
             tableName: "patients",
             fieldMetadata: {
-                id: {columnName: "ID"},
+                id: {columnName: "IDP", dbGenerated: true},
                 name: {columnName: "name"},
                 age: {columnName: "age"},
-                address: {columnName: "ADDRESS"},
+                address: {columnName: "ADD_RESS"},
                 phoneNumber: {columnName: "phoneNumber"},
                 gender: {columnName: "gender"},
                 "appointments[].id": {relation: {entityName: "appointments", refField: "id"}},
                 "appointments[].reason": {relation: {entityName: "appointments", refField: "reason"}},
                 "appointments[].appointmentTime": {relation: {entityName: "appointments", refField: "appointmentTime"}},
                 "appointments[].status": {relation: {entityName: "appointments", refField: "status"}},
-                "appointments[].patientId": {relation: {entityName: "appointments", refField: "patientId"}},
+                "appointments[].patientId": {relation: {entityName: "appointments", refField: "patientId", refColumn: "patient_id"}},
                 "appointments[].doctorId": {relation: {entityName: "appointments", refField: "doctorId"}}
             },
             keyFields: ["id"],
-            joinMetadata: {appointments: {entity: Appointment, fieldName: "appointments", refTable: "appointment", refColumns: ["patient_id"], joinColumns: ["ID"], 'type: psql:MANY_TO_ONE}}
+            joinMetadata: {appointments: {entity: Appointment, fieldName: "appointments", refTable: "appointment", refColumns: ["patient_id"], joinColumns: ["IDP"], 'type: psql:MANY_TO_ONE}}
         },
         [DOCTOR]: {
             entityName: "Doctor",
@@ -81,7 +81,7 @@ public isolated client class Client {
                 "appointments[].reason": {relation: {entityName: "appointments", refField: "reason"}},
                 "appointments[].appointmentTime": {relation: {entityName: "appointments", refField: "appointmentTime"}},
                 "appointments[].status": {relation: {entityName: "appointments", refField: "status"}},
-                "appointments[].patientId": {relation: {entityName: "appointments", refField: "patientId"}},
+                "appointments[].patientId": {relation: {entityName: "appointments", refField: "patientId", refColumn: "patient_id"}},
                 "appointments[].doctorId": {relation: {entityName: "appointments", refField: "doctorId"}}
             },
             keyFields: ["id"],

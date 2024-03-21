@@ -17,13 +17,13 @@ CREATE TABLE `Doctor` (
 );
 
 CREATE TABLE `patients` (
-	`ID` INT AUTO_INCREMENT,
+	`IDP` INT AUTO_INCREMENT,
 	`name` VARCHAR(191) NOT NULL,
 	`age` INT NOT NULL,
-	`ADDRESS` VARCHAR(191) NOT NULL,
+	`ADD_RESS` VARCHAR(191) NOT NULL,
 	`phoneNumber` CHAR(10) NOT NULL,
 	`gender` ENUM('MALE', 'FEMALE') NOT NULL,
-	PRIMARY KEY(`ID`)
+	PRIMARY KEY(`IDP`)
 );
 
 CREATE TABLE `appointment` (
@@ -32,7 +32,7 @@ CREATE TABLE `appointment` (
 	`appointmentTime` DATETIME NOT NULL,
 	`status` ENUM('SCHEDULED', 'STARTED', 'ENDED') NOT NULL,
 	`patient_id` INT NOT NULL,
-	FOREIGN KEY(`patient_id`) REFERENCES `patients`(`ID`),
+	FOREIGN KEY(`patient_id`) REFERENCES `patients`(`IDP`),
 	`doctorId` INT NOT NULL,
 	FOREIGN KEY(`doctorId`) REFERENCES `Doctor`(`id`),
 	PRIMARY KEY(`id`)
